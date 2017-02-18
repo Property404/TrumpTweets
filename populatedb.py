@@ -44,6 +44,12 @@ while True:
         a.close();
     print("before load")
     load_tweets(user_id= "25073877", max_id = maxid)
+    count = 0
+    count +=1
+    print(count)
+    print('hit limit going to sleep be back in 15')
+    print(time.gmtime())
+    time.sleep(15 * 60)
     continue
 """
 
