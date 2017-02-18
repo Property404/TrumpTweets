@@ -18,12 +18,12 @@ def limit_handled(cursor):
 while True:
     q= "SELECT id from tweets";
     since_id = max(c.execute(q))
-    max_id = min(c.execute(q))
+    maxid = min(c.execute(q))
     columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
     def load_tweets(user_id,max_id):
         tweets = []
         markov = ""
-        for status in limit_handled(tweepy.Cursor(api.user_timeline,user_id = "25073877",max_id).items()):
+        for status in limit_handled(tweepy.Cursor(api.user_timeline,user_id = "25073877",max_id = maxid).items()):
             parsed_json = status._json
             markov += parsed_json["text"];
             values  = [str(parsed_json[x]) if x=="id" else (base64.b64encode(str(parsed_json[x]).encode("UTF8"))).decode("UTF8") for x in columns]
