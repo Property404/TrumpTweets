@@ -6,38 +6,41 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_core.bundle.css">
       <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_more_1.bundle.css">
-      <!-- <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_more_2.bundle.css">-->
+        <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_more_2.bundle.css">
     </head>
 <body>
 	</div>
 	<div class="container">
+		<div class="row">
+		</div>
+		<div class="row">
 			<div class="col-sm-8 mx-auto">
 				<div class = "jumbotron tweet" style="text-align: center">
+			
 					<img src="http://162.243.109.160:8080/trump.png" height="90px" width="90px">
 					<p>
-					<h1>Real or FAKE NEWS!?!?<br><p></h1>
+					<h1>Real or FAKE NEWS!?!?</h1>
+					<p>
 					<p id="tweet">Loading...</p>
-					<br>
-					<div class="row">
+					<p>
 					<div class="col">
 						<a class="btn btn-primary" id="real">Real</a>
 					</div>
 					<div class="col">
 						<a class="btn btn-primary" id="fake">Fake</a>
 					</div>
-					</div>
-					<div class = "row">
 					<div class="col">
 						<p id="points">0</p>
 					</div>
-					</div>
-					<p><br>
-		<div id="alert" class="alert alert-danger" role="alert" hidden>
-		<strong id="alert-title"></strong>&nbsp;<span id="alert-message"></span>
+<div id="alert" class="alert alert-danger" role="alert" hidden>
+		<strong id="alert-title"></strong><span id="alert-message"></span>
 	</div>
 
 				</div>
 			</div>
+		</div>
+		<div class="row">
+		</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 	<script>
@@ -48,11 +51,6 @@
 	function right(){
 		points++;
 		document.getElementById("points").innerHTML = points;
-
-		document.getElementById("alert").className = "alert alert-success";
-		document.getElementById("alert").removeAttribute("hidden");
-		document.getElementById("alert-title").innerHTML = "Terrific!";
-		document.getElementById("alert-message").innerHTML = "Simply teriffic" + result["real"]?"":", you saw through that fake news";
 	}
 	function hideButtons(){
 		realbutton.setAttribute("hidden","true");
@@ -67,10 +65,9 @@
 		modal.find('.modal-body').text("WRONG! FAKE NEWS!");
 	});
 	function wrong(){
-		document.getElementById("alert").className = "alert alert-danger";
 		document.getElementById("alert").removeAttribute("hidden");
-		document.getElementById("alert-title").innerHTML = result["real"]?"Yuge mistake!":"FAKE NEWS";
-		document.getElementById("alert-message").innerHTML = result["real"]?"Sad!":"crooked media! Shame!";
+		document.getElementById("alert-title").innerHTML = "FAKE NEWS";
+		document.getElementById("alert-message").innerHTML = "crooked media! Shame!";
 	}
 
 	realbutton.addEventListener("click", function(){
@@ -83,11 +80,7 @@
 		getTweet();
 	});
 	fakebutton.addEventListener("click", function(){
-		if(!result["real"]){
-			right();
-		}else{
-			wrong();
-		}
+		if(!result["real"])right();
 		hideButtons();
 		getTweet();
 	});
