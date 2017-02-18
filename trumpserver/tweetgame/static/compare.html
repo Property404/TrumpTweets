@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head><title>Tweet like Trump</title>
+   <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_core.bundle.css">
+      <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_more_1.bundle.css">
+      <!-- <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_more_2.bundle.css">-->
+    </head>
+<body>
+	<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+			    t = window.twttr || {};
+		  if (d.getElementById(id)) return t;
+		  js = d.createElement(s);
+		  js.id = id;
+		  js.src = "https://platform.twitter.com/widgets.js";
+		  fjs.parentNode.insertBefore(js, fjs);
+
+		  t._e = [];
+		  t.ready = function(f) {
+			      t._e.push(f);
+			    };
+
+		  return t;
+	}(document, "script", "twitter-wjs"));</script>
+
+	<div class="container">
+		<div class="jumbotron" style="text-align: center;">
+		<div class="row">
+			<div class="col">
+				<img src="http://162.243.109.160:8080/trump.png" height="90px" width="90px">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p><br></p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h1>Tweet like Trump<br></h1>
+			</div>
+		</div>
+		<div class="row">
+			<p><br>
+		</div>
+		<div class="row" style="text-align: center;">
+		<div class="col">
+		<textarea rows=6 cols=80 id="textbox" style="text-align: center;"></textarea>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col">
+		<a class='btn btn-primary' id='trumpify' >Cheat</a>
+		<a class='btn btn-primary' id='submit' >Tweet!</a>
+		</div>
+		</div>
+		<div class="row">
+			<div class="col">
+			<p id="points"></p>
+			</div>
+		</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+	<script>
+		document.getElementById("trumpify").addEventListener("click", function(){
+			jQuery.get("/morerandom", function(data){
+				document.getElementById("textbox").value = JSON.parse(data)["sentence"];
+			});});
+		document.getElementById("submit").addEventListener("click", function(event){
+			document.getElementById("submit").setAttribute("hidden", "true");
+			jQuery.get("/scoretweet", {
+				"tweet": document.getElementById("textbox").value}, function(e){
+
+					console.log(e);
+					document.getElementById("submit").removeAttribute("hidden");
+					if(e<6){
+					document.getElementById("points").innerHTML="Only " + e + " Trump points! Sad!";
+					}else{
+						document.getElementById("points").innerHTML=e + "Trump points! Terrific!";
+					}
+					message = document.getElementById("textbox").value + "("+document.getElementById("points").innerHTML+")"
+					
+					window.location = "https://twitter.com/intent/tweet?original_referer=http%3A%2F%2F162.243.109.160%2Fcompare&ref_src=twsrc%5Etfw&text="+encodeURIComponent(message)+"&tw_p=tweetbutton"
+				});});
+</script>
+
+    <!-- Bootstrap core JavaScript
+	        ================================================== -->
+		    <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+</body>
+</html>

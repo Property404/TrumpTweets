@@ -9,102 +9,14 @@
       <!-- <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_more_2.bundle.css">-->
     </head>
 <body>
-	</div>
 	<div class="container">
-			<div class="col-sm-8 mx-auto">
-				<div class = "jumbotron tweet" style="text-align: center">
-					<img src="http://162.243.109.160:8080/trump.png" height="90px" width="90px">
-					<p>
-					<h1>Real or FAKE NEWS!?!?<br><p></h1>
-					<p id="tweet">Loading...</p>
-					<br>
-					<div class="row">
-					<div class="col">
-						<a class="btn btn-primary" id="real">Real</a>
-					</div>
-					<div class="col">
-						<a class="btn btn-primary" id="fake">Fake</a>
-					</div>
-					</div>
-					<div class = "row">
-					<div class="col">
-						<p id="points">0</p>
-					</div>
-					</div>
-					<p><br>
-		<div id="alert" class="alert alert-danger" role="alert" hidden>
-		<strong id="alert-title"></strong>&nbsp;<span id="alert-message"></span>
-	</div>
-
-				</div>
+			<div class="col">
+				<a href="/compare"><img src="http://icons.iconarchive.com/icons/sicons/basic-round-social/512/twitter-icon.png"></a>
+			</div>
+			<div class="col">
+				<a href="/realorfake"><img src="http://icons.iconarchive.com/icons/icons8/ios7/512/Media-Controls-News-icon.png"></a>
 			</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
-	<script>
-	var points = 0;
-	var realbutton = document.getElementById("real");
-	var fakebutton = document.getElementById("fake");
-	var result;
-	function right(){
-		points++;
-		document.getElementById("points").innerHTML = points;
-
-		document.getElementById("alert").className = "alert alert-success";
-		document.getElementById("alert").removeAttribute("hidden");
-		document.getElementById("alert-title").innerHTML = "Terrific!";
-		document.getElementById("alert-message").innerHTML = "Simply teriffic" + result["real"]?"":", you saw through that fake news";
-	}
-	function hideButtons(){
-		realbutton.setAttribute("hidden","true");
-		fakebutton.setAttribute("hidden", "true");
-	}
-	function showButtons(){
-		realbutton.removeAttribute("hidden");
-		fakebutton.removeAttribute("hidden");
-	}
-	$('#alertmodal').on('show.bs.modal', function(event){
-		var modal = $(this)
-		modal.find('.modal-body').text("WRONG! FAKE NEWS!");
-	});
-	function wrong(){
-		document.getElementById("alert").className = "alert alert-danger";
-		document.getElementById("alert").removeAttribute("hidden");
-		document.getElementById("alert-title").innerHTML = result["real"]?"Yuge mistake!":"FAKE NEWS";
-		document.getElementById("alert-message").innerHTML = result["real"]?"Sad!":"crooked media! Shame!";
-	}
-
-	realbutton.addEventListener("click", function(){
-		if(result["real"]){
-			right();
-		}else{
-			wrong();
-		}
-		hideButtons();
-		getTweet();
-	});
-	fakebutton.addEventListener("click", function(){
-		if(!result["real"]){
-			right();
-		}else{
-			wrong();
-		}
-		hideButtons();
-		getTweet();
-	});
-	function getTweet(){
-		hideButtons();
-		jQuery.get("/random", function(data){
-			console.log(data);
-			result = JSON.parse(data);
-			document.getElementById("tweet").innerHTML = result["sentence"];
-			showButtons();
-			
-		
-		});
-	}
-	getTweet();
-	
-	</script>
 
     <!-- Bootstrap core JavaScript
 	        ================================================== -->
