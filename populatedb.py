@@ -34,7 +34,7 @@ while True:
             print(query);
             c.execute(query);
             db.commit();
-            print(c.fetchall())
+            print(c.fetchall());
             print(values);
         a = open("markov.txt","w");
         a.write(markov);
