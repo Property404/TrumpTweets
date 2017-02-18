@@ -21,7 +21,6 @@ while True:
     c.execute(q);
     l = (c.fetchall());
     maxid = l[0][0]
-    print(l)
     columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
     def load_tweets(user_id,max_id):
         tweets = []
@@ -46,10 +45,10 @@ while True:
     load_tweets(user_id= "25073877", max_id = maxid)
     count = 0
     count +=1
-    print(count)
-    print('hit limit going to sleep be back in 15')
-    print(time.gmtime())
-    time.sleep(15 * 60)
+    if count == 900:
+        print('hit limit going to sleep be back in 15')
+        print(time.gmtime())
+        time.sleep(15 * 60)
     continue
 """
 
