@@ -17,6 +17,8 @@ def limit_handled(cursor):
             time.sleep(15 * 60)
 while True:
     q= "SELECT id from tweets";
+    c.execute(q);
+    print(c.fetchall);
     since_id = max(c.execute(q))
     maxid = min(c.execute(q))
     columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
