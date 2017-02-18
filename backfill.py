@@ -19,15 +19,21 @@ def limit_handled(cursor):
         try:
             yield cursor.next()
         except tweepy.RateLimitError:
+            with io.open(r'/home/hackfsu/TrumpTweets/all_trump_tweets.json', 'w') as json_data:
+                json.dump(masterlist, json_data)
+                io.close(json_data)
+            print(time.localtime())
             print("hit rate limit")
             lastread = status_json.id
-            print('\n' + lastread)
             print('\n' + count)
             time.sleep(15 * 60)
-
 with open(r'/home/hackfsu/TrumpTweets/all_trump_tweets.json') as json_data:
     masterlist = json.load(json_data)
     masterlist.sort()
+    for x in masterlist:
+        if int(x) > 142737148091707392:
+            masterlist.remove(x)
+    os.close(json_data)
 for x in masterlist:
     status_json = api.get_status(x)
     parsed_json = {'id' : status_json.id, 'created_at' : status_json.created_at, 'text':status_json.text, "favorite_count":  status_json.favorite_count,"retweet_count" : status_json.retweet_count,
@@ -47,15 +53,17 @@ for x in masterlist:
     print(query);
     c.execute(query);
     db.commit();
-    print(c.fetchall());
+    print(c.fetchall())
     print(values);
     a = open("markov.txt", "w");
     a.write(markov);
     a.close();
     count += 1
     if count == 850:
+        with io.open(r'/home/hackfsu/TrumpTweets/all_trump_tweets.json', 'w') as json_data:
+            json.dump(masterlist, json_data)
+            io.close(json_data)
         print('\nhit limit going to sleep be back in 15\n')
         lastread = status_json.id
-        print('\n' + lastread)
         time.sleep(15 * 60)
     continue
