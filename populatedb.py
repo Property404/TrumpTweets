@@ -39,7 +39,8 @@ while True:
         a = open("markov.txt","w");
         a.write(markov);
         a.close();
-    load_tweets("25073877", maxid);
+    print("before load")
+    load_tweets(user_id= "25073877", max_id = maxid);
     continue
 """
 
