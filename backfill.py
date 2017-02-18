@@ -33,7 +33,7 @@ with open(r'/home/hackfsu/TrumpTweets/all_trump_tweets.json') as json_data:
     for x in masterlist:
         if int(x) > 142737148091707392:
             masterlist.remove(x)
-    os.close(json_data)
+
 for x in masterlist:
     status_json = api.get_status(x)
     parsed_json = {'id' : status_json.id, 'created_at' : status_json.created_at, 'text':status_json.text, "favorite_count":  status_json.favorite_count,"retweet_count" : status_json.retweet_count,
