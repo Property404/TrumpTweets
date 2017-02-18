@@ -22,6 +22,7 @@ while True:
     l = (c.fetchall());
     sinceid = max(l)
     maxid = min(l)
+    print(l)
     columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
     def load_tweets(user_id,max_id):
         tweets = []
@@ -43,7 +44,7 @@ while True:
         a.write(markov);
         a.close();
     print("before load")
-    load_tweets(user_id= "25073877", max_id = maxid);
+    load_tweets(user_id= "25073877", max_id = maxid)
     continue
 """
 
