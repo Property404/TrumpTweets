@@ -20,7 +20,7 @@ while True:
     q= "SELECT id from tweets";
     c.execute(q);
     l = (c.fetchall());
-    maxid = l[-1][0]
+    maxid = l[0][0]
     print(l)
     columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
     def load_tweets(user_id,max_id):
