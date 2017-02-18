@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_more_2.bundle.css">
     </head>
 <body>
+	</div>
 	<div class="container">
 		<div class="row">
 		</div>
@@ -17,28 +18,89 @@
 		<div class = "jumbotron tweet" style="text-align: center">
 			
 			<img src="http://162.243.109.160:8080/trump.png" height="90px" width="90px">
-			<h1>Real or Fake?</h1>
-			<p id="tweet">This is a tweet</p>
+			<p>
+			<h1>Real or FAKE NEWS!?!?</h1>
+			<p>
+			<p id="tweet">Loading...</p>
+			<p>
 			<div class="col">
 			<a class="btn btn-primary" id="real">Real</a>
 			</div>
 			<div class="col">
-				<a class="btn btn-primary" id="false">Fake</a>
+				<a class="btn btn-primary" id="fake">Fake</a>
+			</div>
+			<div class="col">
+				<p id="points">0</p>
 			</div>
 		</div>
 			</div>
 		</div>
+		<div class="row">
+	<div id="alert" class="alert alert-danger" role="alert" hidden>
+		<strong id="alert-title"></strong><span id="alert-message"></span>
 	</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
 	<script>
-	function get
+	var points = 0;
+	var realbutton = document.getElementById("real");
+	var fakebutton = document.getElementById("fake");
+	var result;
+	function right(){
+		points++;
+		document.getElementById("points").innerHTML = points;
+	}
+	function hideButtons(){
+		realbutton.setAttribute("hidden","true");
+		fakebutton.setAttribute("hidden", "true");
+	}
+	function showButtons(){
+		realbutton.removeAttribute("hidden");
+		fakebutton.removeAttribute("hidden");
+	}
+	$('#alertmodal').on('show.bs.modal', function(event){
+		var modal = $(this)
+		modal.find('.modal-body').text("WRONG! FAKE NEWS!");
+	});
+	function wrong(){
+		document.getElementById("alert").removeAttribute("hidden");
+		document.getElementById("alert-title").innerHTML = "FAKE NEWS";
+		document.getElementById("alert-message").innerHTML = "crooked media! Shame!";
+	}
+
+	realbutton.addEventListener("click", function(){
+		if(result["real"]){
+			right();
+		}else{
+			wrong();
+		}
+		hideButtons();
+		getTweet();
+	});
+	fakebutton.addEventListener("click", function(){
+		if(!result["real"])right();
+		hideButtons();
+		getTweet();
+	});
+	function getTweet(){
+		hideButtons();
+		jQuery.get("/random", function(data){
+			console.log(data);
+			result = JSON.parse(data);
+			document.getElementById("tweet").innerHTML = result["sentence"];
+			showButtons();
+			
+		
+		});
+	}
+	getTweet();
+	
 	</script>
 
     <!-- Bootstrap core JavaScript
 	        ================================================== -->
 		    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 			        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
 </body>
 </html>

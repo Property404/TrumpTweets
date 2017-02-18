@@ -21,7 +21,8 @@ main = open("/var/www/trumptweets/trumpserver/tweetgame/static/index.html").read
 def getRandom():
     real = randint(0,1);
     sentence = choice(real_tweets) if real else tm.make_sentence().encode("UTF8")
-    return  b"{"+str(real).encode("UTF8")+b",\""+sentence+b"\"}"
+    sentence = sentence.decode("UTF-8").replace('"',"''").replace("\n","\\n").encode("UTF-8");
+    return  b"{\"real\":"+str(real).encode("UTF8")+b",\"sentence\":\""+sentence+b"\"}"
 
 def index(request):
     return HttpResponse(main);
