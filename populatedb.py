@@ -14,6 +14,7 @@ def limit_handled(cursor):
         try:
             yield cursor.next()
         except tweepy.RateLimitError:
+            print("hit rate limit")
             time.sleep(15 * 60)
 while True:
     q= "SELECT id from tweets";
@@ -25,7 +26,9 @@ while True:
     def load_tweets(user_id,max_id):
         tweets = []
         markov = ""
+        print("after markov")
         for status in limit_handled(tweepy.Cursor(api.user_timeline,user_id = "25073877",max_id = maxid).items()):
+            print("in tweet loop")
             parsed_json = status._json
             markov += parsed_json["text"];
             values  = [str(parsed_json[x]) if x=="id" else (base64.b64encode(str(parsed_json[x]).encode("UTF8"))).decode("UTF8") for x in columns]
