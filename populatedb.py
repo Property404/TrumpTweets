@@ -7,7 +7,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
 api = tweepy.API(auth)
 import MySQLdb
-db = MySQLdb.connect("localhost","root","hunter2","trump");        
+db = MySQLdb.connect("localhost","root","hunter2","trump");
 c = db.cursor()
 def limit_handled(cursor):
     while True:
@@ -15,28 +15,30 @@ def limit_handled(cursor):
             yield cursor.next()
         except tweepy.RateLimitError:
             time.sleep(15 * 60)
-
-
-columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
-def load_tweets(user_id):
-    tweets = []
-    markov = ""
-    for status in limit_handled(tweepy.Cursor(api.user_timeline,user_id = "25073877").items()):
-        parsed_json = status._json
-        markov += parsed_json["text"];
-        values  = [str(parsed_json[x]) if x=="id" else (base64.b64encode(str(parsed_json[x]).encode("UTF8"))).decode("UTF8") for x in columns]
-        tweets += values
-        query = "INSERT IGNORE INTO tweets ("+",".join(columns)+") VALUES("+values[0]+",\""+"\",\"".join(values[1::])+"\");";
-        print(query);
-        c.execute(query);
-        db.commit();
-        print(c.fetchall())
-        print(values);
-    a = open("markov.txt","w");
-    a.write(markov);
-    a.close();
-
-load_tweets("25073877");
+while True:
+    q= "SELECT id from tweets";
+    since_id = max(c.execute(q))
+    max_id = min(c.execute(q))
+    columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
+    def load_tweets(user_id,max_id):
+        tweets = []
+        markov = ""
+        for status in limit_handled(tweepy.Cursor(api.user_timeline,user_id = "25073877",max_id).items()):
+            parsed_json = status._json
+            markov += parsed_json["text"];
+            values  = [str(parsed_json[x]) if x=="id" else (base64.b64encode(str(parsed_json[x]).encode("UTF8"))).decode("UTF8") for x in columns]
+            tweets += values
+            query = "INSERT IGNORE INTO tweets ("+",".join(columns)+") VALUES("+values[0]+",\""+"\",\"".join(values[1::])+"\");";
+            print(query);
+            c.execute(query);
+            db.commit();
+            print(c.fetchall())
+            print(values);
+        a = open("markov.txt","w");
+        a.write(markov);
+        a.close();
+    load_tweets("25073877");
+    continue
 """
 
     twit = Tweet.objects.create(tweet_id = parsed_json['id'], created_at = parsed_json['created_at'], text = parsed_json['text'],
