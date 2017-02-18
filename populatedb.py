@@ -20,18 +20,21 @@ def limit_handled(cursor):
 columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
 def load_tweets(user_id):
     tweets = []
+    markov = ""
     for status in limit_handled(tweepy.Cursor(api.user_timeline,user_id = "25073877").items()):
         parsed_json = status._json
+        markov += parsed_json["text"];
         values  = [str(parsed_json[x]) if x=="id" else (base64.b64encode(str(parsed_json[x]).encode("UTF8"))).decode("UTF8") for x in columns]
         tweets += values
-        query = "INSERT INTO tweets ("+",".join(columns)+") VALUES("+values[0]+",\""+"\",\"".join(values[1::])+"\");";
+        query = "INSERT IGNORE INTO tweets ("+",".join(columns)+") VALUES("+values[0]+",\""+"\",\"".join(values[1::])+"\");";
         print(query);
         c.execute(query);
         db.commit();
         print(c.fetchall())
         print(values);
-        time.sleep(10);
-
+    a = open("markov.txt","w");
+    a.write(markov);
+    a.close();
 
 load_tweets("25073877");
 """
