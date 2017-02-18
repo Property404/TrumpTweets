@@ -18,5 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^game/', include('tweetgame.urls')),
+    url(r'^', include('tweetgame.urls')),
     url(r'^admin/', admin.site.urls),
 ]
