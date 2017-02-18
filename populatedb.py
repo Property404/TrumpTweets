@@ -18,8 +18,8 @@ def limit_handled(cursor):
 while True:
     q= "SELECT id from tweets";
     c.execute(q);
-    print(c.fetchall);
-    since_id = max(c.execute(q))
+    print(c.fetchall());
+    sinceid = max(c.execute(q))
     maxid = min(c.execute(q))
     columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
     def load_tweets(user_id,max_id):
