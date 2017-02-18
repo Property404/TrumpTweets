@@ -4,6 +4,10 @@ import time
 import json
 from secrets import*
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+import time
+import json
+from secrets import*
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
 api = tweepy.API(auth)
 import MySQLdb
@@ -16,19 +20,19 @@ def limit_handled(cursor):
             yield cursor.next()
         except tweepy.RateLimitError:
             print("hit rate limit")
-            print(time.gmtime())
             lastread = status_json.id
             print('\n' + lastread)
             print('\n' + count)
             time.sleep(15 * 60)
 
-with open(r'C:\Users\Atlas\Desktop\trump tweets\all_trump_tweets.json') as json_data:
+with open(r'/home/hackfsu/TrumpTweets/all_trump_tweets.json') as json_data:
     masterlist = json.load(json_data)
-    masterlst.sort()
+    masterlist.sort()
 for x in masterlist:
     status_json = api.get_status(x)
-    parsed_json = {'id' : staus_json.id, 'created_at' : status_json.created_at, 'text':status_json.text, "favorite_count":  status_json.favorite_count,"retweet_count" : status_json.retweet_count,
-                   "in_reply_to_user_id" : status_json.in_reply_to_user_id, 'in_reply_to_status_id' : status_json}
+    parsed_json = {'id' : status_json.id, 'created_at' : status_json.created_at, 'text':status_json.text, "favorite_count":  status_json.favorite_count,"retweet_count" : status_json.retweet_count,
+                   "in_reply_to_user_id" : status_json.in_reply_to_user_id,
+                   'in_reply_to_status_id' : status_json.in_reply_to_user_id}
     columns = ["id", "created_at", "text", "favorite_count", "retweet_count", "in_reply_to_user_id",
                "in_reply_to_status_id"]
     tweets = []
@@ -49,9 +53,8 @@ for x in masterlist:
     a.write(markov);
     a.close();
     count += 1
-    if count == 899:
+    if count == 850:
         print('\nhit limit going to sleep be back in 15\n')
-        print(time.gmtime())
         lastread = status_json.id
         print('\n' + lastread)
         time.sleep(15 * 60)
