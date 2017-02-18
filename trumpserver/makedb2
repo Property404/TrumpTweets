@@ -1,12 +1,12 @@
 use trump;
 drop table tweets;
-create table tweets(id INT NOT NULL PRIMARY KEY,
+create table tweets(id BIGINT NOT NULL PRIMARY KEY,
 created_at TEXT,
 tweet_id TEXT,
 text TEXT,
-favorite_count BIGINT,
-retweet_count BIGINT,
-in_reply_to_status_id BIGINT,
-in_reply_to_user_id BIGINT,
+favorite_count TEXT,
+retweet_count TEXT,
+in_reply_to_status_id TEXT,
+in_reply_to_user_id TEXT,
 hashtags TEXT);
 
