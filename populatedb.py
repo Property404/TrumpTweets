@@ -7,9 +7,10 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_key, access_secret)
 api = tweepy.API(auth)
 import MySQLdb
-db = MySQLdb.connect("localhost","root","hunter2","trump");
+db = MySQLdb.connect("162.243.109.160","root","hunter2","trump");
 c = db.cursor()
 count = 0
+last_tweet
 def limit_handled(cursor):
     while True:
         try:
@@ -21,13 +22,14 @@ while True:
     q= "SELECT id from tweets";
     c.execute(q);
     l = (c.fetchall());
-    maxid = l[-1][0]
+    sinceid = l[-1][0]
+    print(sinceid['created_at'])
     columns = ["id", "created_at","text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id"]
     def load_tweets(user_id,max_id):
         tweets = []
         markov = ""
         print("after markov")
-        for status in limit_handled(tweepy.Cursor(api.user_timeline,user_id = "25073877",max_id= 0).items()):
+        for status in limit_handled(tweepy.Cursor(api.user_timeline,user_id = "25073877",since_id= sinceid).items()):
             print("in tweet loop")
             parsed_json = status._json
             markov += parsed_json["text"];
@@ -43,13 +45,14 @@ while True:
         a.write(markov);
         a.close();
     print("before load")
-    load_tweets(user_id= "25073877", max_id = maxid)
+    load_tweets(user_id= "25073877", since_id = sinceid)
     count +=1
     if count == 899:
         print('\nhit limit going to sleep be back in 15\n')
         print(time.gmtime())
         time.sleep(15 * 60)
-    continue
+    last_tweet = status_json['id']
+    print[last_tweet]
 """
 
     twit = Tweet.objects.create(tweet_id = parsed_json['id'], created_at = parsed_json['created_at'], text = parsed_json['text'],

@@ -3,23 +3,19 @@ import base64
 import time
 import json
 import io
-from secrets import*
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_key, access_secret)
-api = tweepy.API(auth)
 import MySQLdb
-db = MySQLdb.connect("localhost","root","hunter2","trump");
+db = MySQLdb.connect("162.243.109.160","root","hunter2","trump");
 c = db.cursor()
 
-with open(r'/home/hackfsu/TrumpTweets/all_trump_tweets.json') as json_data:
+with open(r'C:\Users\Atlas\Desktop\trump tweets\TrumpTweets\all_trump_tweets.json') as json_data:
     masterlist = json.load(json_data)
 for x in masterlist:
     status_json = x
-    userobj =  status_json.user
-    userid = userobj.id_str
-    parsed_json = {'id' : status_json.id, 'created_at' : status_json.created_at,'user_id': userid, 'text':status_json.text, "favorite_count":  status_json.favorite_count,"retweet_count" : status_json.retweet_count,
-                   "in_reply_to_user_id" : status_json.in_reply_to_user_id,
-                   'in_reply_to_status_id' : status_json.in_reply_to_user_id}
+    userobj =  status_json['user']
+    userid = userobj['id_str']
+    parsed_json = {'id' : status_json['id'], 'created_at' : status_json['created_at'],'user_id': ['userid'], 'text':status_json['text'], "favorite_count":  status_json['favorite_count'],"retweet_count" : status_json['retweet_count'],
+                   "in_reply_to_user_id" : status_json['in_reply_to_user_id'],
+                   'in_reply_to_status_id' : status_json['in_reply_to_user_id']}
     columns = ["id", "created_at",'user_id', "text", "favorite_count", "retweet_count", "in_reply_to_user_id",
                "in_reply_to_status_id"]
     tweets = []
@@ -36,7 +32,7 @@ for x in masterlist:
     db.commit();
     print(c.fetchall())
     print(values);
-    a = open("markov.txt", "w");
+    a = io.open("markov.txt", "w",encoding="utf-8");
     a.write(markov);
     a.close();
 with io.open(r'/home/hackfsu/TrumpTweets/all_trump_tweets.json', 'w') as json_data:
