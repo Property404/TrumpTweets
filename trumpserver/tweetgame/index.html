@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Presidential Tweets</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Presidential Tweets</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#Wall">Wall of Shame</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#Search">Search</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Section -->
+    <section id="intro" class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>DRUMPF</h1>
+                     <div id="small-img" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
+				                  <a href="/compare"><img width=175px height=175px src="http://icons.iconarchive.com/icons/sicons/basic-round-social/512/twitter-icon.png" onmouseover="this.width=225; this.height=225; setGame('Tweet like Trump');" onmouseout="this.width=250; this.height=250;setGame('');" ></a>
+       				              <a href="/realorfake"><img width=175px height=175px src="http://icons.iconarchive.com/icons/icons8/ios7/512/Media-Controls-News-icon.png" onmouseover="this.width=225; this.height=225; setGame('Real or FAKE NEWS?!?!!');" onmouseout="this.width=250; this.height=250;setGame('');"></a>
+       			                </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="Wall" class="Wall-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Wall of Shame</h1>
+                    <a class="twitter-grid" href="https://twitter.com/Potus46Real/timelines/833135654582239232">WallofShame</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="Search" class="Search-section">
+        <div class="container">
+          <h1>Search</h1>
+          <div class="container">
+  	<div class="row">
+  		<div class="col-md-12">
+              <div class="input-group" id="adv-search">
+                  <input type="text" class="form-control" placeholder="Search for snippets" />
+                  <div class="input-group-btn">
+                      <div class="btn-group" role="group">
+                          <div class="dropdown dropdown-lg">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                              <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                  <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                      <label for="filter">Filter by</label>
+                                      <select class="form-control">
+                                          <option value="0" selected>All Snippets</option>
+                                          <option value="1">Featured</option>
+                                          <option value="2">Most popular</option>
+                                          <option value="3">Top rated</option>
+                                          <option value="4">Most commented</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="contain">Author</label>
+                                      <input class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="contain">Contains the words</label>
+                                      <input class="form-control" type="text" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                  </form>
+                              </div>
+                          </div>
+                          <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+  	</div>
+  </div>
+        </div>
+    </section>
+
+    <script>
+		var small = 250;;
+		var big =  260;
+		function setGame(title){
+			document.getElementById("game").innerHTML=title;
+		}
+	</script>
+
+    <script>window.twttr = (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+
+      t._e = [];
+      t.ready = function(f) {
+        t._e.push(f);
+      };
+
+      return t;
+    }(document, "script", "twitter-wjs"));</script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>
+
+</body>
+
+</html>
