@@ -11,7 +11,7 @@ from django.http import HttpResponse
 # Load from database
 db = MySQLdb.connect("localhost","root","hunter2","trump");
 c = db.cursor()
-c.execute("""SELECT id, text from tweets;""");
+c.execute("""SELECT id, text from tweets WHERE user_id='realDonaldTrump' or user_id='POTUS';""");
 real_tweets = [[m[0], b64decode(m[1].encode("UTF-8"))] for m in c.fetchall()]
 corpus = open("/var/www/trumptweets/trumpserver/tweetgame/static/markov.txt", "r").read();
 tm = markovify.Text(corpus);

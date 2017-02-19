@@ -1,4 +1,5 @@
 use trump;
+drop table tweets;
 create table tweets(id BIGINT NOT NULL PRIMARY KEY,
 created_at TEXT,
 user_id TEXT,

@@ -77,7 +77,9 @@
 		modal.find('.modal-body').text("WRONG! FAKE NEWS!");
 	});
 	function wrong(){
-		points-=2;
+		points-=4;
+		document.getElementById("points").innerHTML = points;
+
 		document.getElementById("alert").className = "alert alert-danger";
 		document.getElementById("alert").removeAttribute("hidden");
 		document.getElementById("alert-title").innerHTML = result["real"]?"Yuge mistake!":"FAKE NEWS";

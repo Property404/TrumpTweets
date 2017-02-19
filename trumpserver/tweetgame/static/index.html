@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
-	<head><title>Real or FAKE NEWS?!?!?1?</title>
+	<head><title>Choose your Game!</title>
    <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
@@ -9,15 +9,29 @@
       <!-- <link rel="stylesheet" href="https://abs.twimg.com/a/1487131246/css/t1/twitter_more_2.bundle.css">-->
     </head>
 <body>
-	<div class="container">
+	<div class="container" style="text-align: center;">
+		<div class="row" style="text-align: center;">
 			<div class="col">
-				<a href="/compare"><img src="http://icons.iconarchive.com/icons/sicons/basic-round-social/512/twitter-icon.png"></a>
+				<a href="/compare"><img width=250px height=250px src="http://icons.iconarchive.com/icons/sicons/basic-round-social/512/twitter-icon.png" onmouseover="this.width=260; this.height=260; setGame('Tweet like Trump');" onmouseout="this.width=250; this.height=250;setGame('');" ></a>
 			</div>
 			<div class="col">
-				<a href="/realorfake"><img src="http://icons.iconarchive.com/icons/icons8/ios7/512/Media-Controls-News-icon.png"></a>
+				<a href="/realorfake"><img width=250px height=250px src="http://icons.iconarchive.com/icons/icons8/ios7/512/Media-Controls-News-icon.png" onmouseover="this.width=260; this.height=260; setGame('Real or FAKE NEWS?!?!!');" onmouseout="this.width=250; this.height=250;setGame('');"></a>
 			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h1 id="game"></h1>
+			</div>
+		</div>
 	</div>
 
+	<script>
+		var small = 250;;
+		var big =  260;
+		function setGame(title){
+			document.getElementById("game").innerHTML=title;
+		}
+	</script>
     <!-- Bootstrap core JavaScript
 	        ================================================== -->
 		    <!-- Placed at the end of the document so the pages load faster -->
