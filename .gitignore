@@ -1,3 +1,6 @@
 *~
 *__pycache__
 secrets.py
+*secrets.py
+*.pyc
+*.swp

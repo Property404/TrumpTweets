@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+import base64
+import sys
+import tweepy
+import time
+import json
+from secrets import*
+import MySQLdb
+
+# Twitter/Teepy authentication
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+
+# Database authentication
+db = MySQLdb.connect("localhost","root",db_password,db_name);
+cursor = db.cursor()
+
+# consts
+columns = ("id", "created_at", "user_id", "text","favorite_count","retweet_count","in_reply_to_user_id","in_reply_to_status_id")
+
+trump_id = "25073877";
+
+def limit_handle(cursor):
+    while True:
+        try:
+            yield cursor.next()
+        except tweepy.RateLimitError:
+            print("Hit rate limit - going to bed");
+            time.sleep(60);
+
+def load_tweets(tweet_list):
+    tweets = []
+    markov = ""
+    print("Iterating tweet_list...")
+    for status in tweet_list:
+        parsed_json = status._json
+        markov += parsed_json["text"]+"\n"
+        values = [str(parsed_json[x]) if x=="id" else parsed_json["user"]["screen_name"] if x=="user_id" else (base64.b64encode(str(parsed_json[x]).encode("UTF8"))).decode("UTF8") for x in columns]
+        tweets += values
+        query = "INSERT IGNORE INTO tweets ("+",".join(columns)+") VALUES("+values[0]+",\""+"\",\"".join(values[1::])+"\");";
+        cursor.execute(query);
+        db.commit();
+    return markov
+
+def load_new_tweets():
+    markov_text = load_tweets(limit_handle(tweepy.Cursor(api.user_timeline, user_id=trump_id).items()))
+    markov = open("markov.txt", "w");
+    markov.write(markov_text)
+    markov.close()
+def load_old_tweets():
+    with open("all_trump_tweets.json") as json_data:
+        masterlist = json.load(json_data)
+    print("About to load")
+    #load_tweets(master_list);
+    print("Finished")
+if __name__=="__main__":
+    if(len(sys.argv)>1):
+        if(sys.argv[1]=="old"):
+            load_old_tweets();
+        elif(sys.argv[1]=="new"):
+            load_new_tweets();
+        else:
+            print("Usage: load [old|new]")
+    else:
+        print("No arguments")
