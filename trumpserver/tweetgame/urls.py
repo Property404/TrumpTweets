@@ -7,6 +7,8 @@ urlpatterns = [
             url(r'^random', views.random, name="random"),
             url(r'^morerandom', views.random, name="morerandom"),
             url(r'^compare', views.compare,name="compare"),
-            url(r'^scoretweet', views.scoretweet, name="scoretweet")
+            url(r'^scoretweet', views.scoretweet, name="scoretweet"),
+            url(r'^feelings', views.feelings, name="feelings"),
+            url(r'^linguistics', views.linguistics, name="linguistics")
 ]
 
