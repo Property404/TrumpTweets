@@ -4,7 +4,8 @@ import time
 import json
 import io
 import MySQLdb
-db = MySQLdb.connect("162.243.109.160","root","hunter2","trump");
+from secrets.py import *
+db = MySQLdb.connect(ipadress,user,passwrod,dbname);
 c = db.cursor()
 
 with open(r'C:\Users\Atlas\Desktop\trump tweets\TrumpTweets\all_trump_tweets.json') as json_data:
